@@ -1,0 +1,455 @@
+{
+  "name": "IniFileTopSolid",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_section"
+      }
+    },
+    "_section": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "section_name"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_line"
+          }
+        }
+      ]
+    },
+    "section_name": {
+      "type": "PATTERN",
+      "value": "[A-Z\\,\\s_0-9]+"
+    },
+    "_line": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_bloc_line"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_jump_line"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_format_line"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "param_line"
+        }
+      ]
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "\\/\\/.*"
+    },
+    "param_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameter_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameter_value"
+        }
+      ]
+    },
+    "parameter_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_0-9 ]+"
+    },
+    "parameter_value": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9\\,_ \\.\\#\\=]*"
+    },
+    "_bloc_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#bloc"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bloc_keyword"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_cell_list"
+        }
+      ]
+    },
+    "_jump_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#bloc"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "jump_keyword"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "section_name"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "condition_cell"
+              }
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\n"
+            }
+          ]
+        }
+      ]
+    },
+    "condition_cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "simple_condition_cell"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "question_mark_cell"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "simple_condition_cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[#!]+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      ]
+    },
+    "question_mark_cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "?"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assignment_value"
+        }
+      ]
+    },
+    "_cell_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "cell"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\n"
+        }
+      ]
+    },
+    "bloc_keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "YES"
+        },
+        {
+          "type": "STRING",
+          "value": "NO"
+        },
+        {
+          "type": "STRING",
+          "value": "ADR"
+        },
+        {
+          "type": "STRING",
+          "value": "INI"
+        },
+        {
+          "type": "STRING",
+          "value": "VAL"
+        },
+        {
+          "type": "STRING",
+          "value": "OLD"
+        },
+        {
+          "type": "STRING",
+          "value": "CLS"
+        },
+        {
+          "type": "STRING",
+          "value": "IF"
+        },
+        {
+          "type": "STRING",
+          "value": "NOT"
+        }
+      ]
+    },
+    "jump_keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "MSG"
+        },
+        {
+          "type": "STRING",
+          "value": "MSGNOT"
+        },
+        {
+          "type": "STRING",
+          "value": "SUB"
+        },
+        {
+          "type": "STRING",
+          "value": "SUBNOT"
+        }
+      ]
+    },
+    "cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_annotation_characters"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_word_cell"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_dollar_text"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "assignment_cell"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "_word_cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[A-Z_]+\\."
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      ]
+    },
+    "assignment_cell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assignment_value"
+        }
+      ]
+    },
+    "assignment_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_assignment_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dollar_text"
+        }
+      ]
+    },
+    "_dollar_text": {
+      "type": "PATTERN",
+      "value": "\\$[A-Za-z0-9.%_,=*()\\-]+"
+    },
+    "_number": {
+      "type": "PATTERN",
+      "value": "[0-9]+"
+    },
+    "_annotation_characters": {
+      "type": "PATTERN",
+      "value": "[#@!?]*"
+    },
+    "word": {
+      "type": "PATTERN",
+      "value": "[A-Z_][A-Z_0-9]*"
+    },
+    "_assignment_text": {
+      "type": "PATTERN",
+      "value": "[A-Z_][A-Z_0-9=]*"
+    },
+    "_format_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#format"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameter_value"
+        }
+      ]
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
