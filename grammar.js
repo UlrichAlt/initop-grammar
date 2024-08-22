@@ -4,7 +4,7 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat($._section),
 
-    _section: ($) => seq("[", $.section_name, "]", repeat($._line)),
+    section: ($) => seq("[", $.section_name, "]", repeat($._line)),
 
     section_name: ($) => /[A-Z\,\s_0-9]+/,
 
