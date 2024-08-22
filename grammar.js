@@ -15,8 +15,8 @@ module.exports = grammar({
 
     param_line: ($) => seq("#", $.parameter_name, "=", $.parameter_value),
 
-    parameter_name: ($) => /[a-zA-Z_0-9 ]+/,
-    parameter_value: ($) => /[a-zA-Z0-9\,_ \.\#\=]*/,
+    parameter_name: ($) => /[^\#=]+[^\#\s=]/,
+    parameter_value: ($) => /[^\s].*/,
 
     _bloc_line: ($) => seq("#bloc", "=", $.bloc_keyword, ",", $._cell_list),
     _jump_line: ($) =>
@@ -51,14 +51,17 @@ module.exports = grammar({
         "]",
       ),
 
-    _word_cell: ($) => seq(optional(/[A-Z_]+\./), $.word),
+    _inline_format: ($) => /[A-Z_]+\./,
 
-    assignment_cell: ($) => seq($.word, "=", $.assignment_value),
+    _word_cell: ($) => seq(optional($._inline_format), $.word),
+
+    assignment_cell: ($) =>
+      seq(optional($._inline_format), $.word, "=", $.assignment_value),
 
     assignment_value: ($) =>
       choice($._number, $._assignment_text, $._dollar_text),
 
-    _dollar_text: ($) => /\$[A-Za-z0-9.%_,=*()\-]+/,
+    _dollar_text: ($) => /\$.+[^\]\n]/,
 
     _number: ($) => /[0-9]+/,
 
@@ -67,6 +70,23 @@ module.exports = grammar({
     word: ($) => /[A-Z_][A-Z_0-9]*/,
     _assignment_text: ($) => /[A-Z_][A-Z_0-9=]*/,
 
-    _format_line: ($) => seq("#format", "=", $.parameter_value),
+    _format_line: ($) =>
+      seq(
+        "#format",
+        "=",
+        optional($.address),
+        ",",
+        $.word,
+        ",",
+        $.format_string,
+      ),
+
+    address: ($) => choice($._quoted_address, $._unquoted_address),
+
+    _quoted_address: ($) => /\".+\"/,
+
+    _unquoted_address: ($) => /[A-Za-z]+/,
+
+    format_string: ($) => /[^\s][^\n]+/,
   },
 });

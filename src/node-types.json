@@ -1,5 +1,10 @@
 [
   {
+    "type": "address",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "assignment_cell",
     "named": true,
     "fields": {},
@@ -133,6 +138,10 @@
       "required": false,
       "types": [
         {
+          "type": "address",
+          "named": true
+        },
+        {
           "type": "bloc_keyword",
           "named": true
         },
@@ -145,6 +154,10 @@
           "named": true
         },
         {
+          "type": "format_string",
+          "named": true
+        },
+        {
           "type": "jump_keyword",
           "named": true
         },
@@ -153,11 +166,11 @@
           "named": true
         },
         {
-          "type": "parameter_value",
+          "type": "section_name",
           "named": true
         },
         {
-          "type": "section_name",
+          "type": "word",
           "named": true
         }
       ]
@@ -250,6 +263,10 @@
   {
     "type": "]",
     "named": false
+  },
+  {
+    "type": "format_string",
+    "named": true
   },
   {
     "type": "parameter_name",

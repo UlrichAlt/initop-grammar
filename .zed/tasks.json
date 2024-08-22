@@ -1,0 +1,9 @@
+// Static tasks configuration.
+//
+// Example:
+[
+  {
+    "label": "Look for errors",
+    "command": "tree-sitter parse example-file.ini | grep ERROR"
+  }
+]

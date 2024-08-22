@@ -84,11 +84,11 @@
     },
     "parameter_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_0-9 ]+"
+      "value": "[^\\#=]+[^\\#\\s=]"
     },
     "parameter_value": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9\\,_ \\.\\#\\=]*"
+      "value": "[^\\s].*"
     },
     "_bloc_line": {
       "type": "SEQ",
@@ -348,6 +348,10 @@
         }
       ]
     },
+    "_inline_format": {
+      "type": "PATTERN",
+      "value": "[A-Z_]+\\."
+    },
     "_word_cell": {
       "type": "SEQ",
       "members": [
@@ -355,8 +359,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "[A-Z_]+\\."
+              "type": "SYMBOL",
+              "name": "_inline_format"
             },
             {
               "type": "BLANK"
@@ -372,6 +376,18 @@
     "assignment_cell": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_inline_format"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "SYMBOL",
           "name": "word"
@@ -405,7 +421,7 @@
     },
     "_dollar_text": {
       "type": "PATTERN",
-      "value": "\\$[A-Za-z0-9.%_,=*()\\-]+"
+      "value": "\\$.+[^\\]\\n]"
     },
     "_number": {
       "type": "PATTERN",
@@ -435,10 +451,59 @@
           "value": "="
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "address"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
           "type": "SYMBOL",
-          "name": "parameter_value"
+          "name": "word"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "format_string"
         }
       ]
+    },
+    "address": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quoted_address"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_unquoted_address"
+        }
+      ]
+    },
+    "_quoted_address": {
+      "type": "PATTERN",
+      "value": "\\\".+\\\""
+    },
+    "_unquoted_address": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]+"
+    },
+    "format_string": {
+      "type": "PATTERN",
+      "value": "[^\\s][^\\n]+"
     }
   },
   "extras": [
