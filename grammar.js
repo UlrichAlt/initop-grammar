@@ -1,5 +1,5 @@
 module.exports = grammar({
-  name: "IniFileTopSolid",
+  name: "ini_top",
 
   rules: {
     source_file: ($) => repeat($._section),

@@ -1,5 +1,5 @@
 {
-  "name": "tree-sitter-initop",
+  "name": "tree-sitter-ini_top",
   "version": "1.0.0",
   "main": "index.js",
   "types": "bindings/node",
@@ -37,7 +37,7 @@
   ],
   "tree-sitter": [
     {
-      "scope": "source.IniFileTopSolid",
+      "scope": "source.ini_top",
       "injection-regex": "^IniFileTopSolid$",
       "file-types": [
         "ini",

@@ -1,4 +1,4 @@
-package tree_sitter_IniFileTopSolid
+package tree_sitter_ini_top
 
 // #cgo CFLAGS: -std=c11 -fPIC
 // #include "../../src/parser.c"
@@ -9,5 +9,5 @@ import "unsafe"
 
 // Get the tree-sitter Language for this grammar.
 func Language() unsafe.Pointer {
-	return unsafe.Pointer(C.tree_sitter_ini_file_top_solid())
+	return unsafe.Pointer(C.tree_sitter_ini_top())
 }

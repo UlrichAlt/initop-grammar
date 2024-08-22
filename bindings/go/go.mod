@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-IniFileTopSolid
+module github.com/tree-sitter/tree-sitter-ini_top
 
 go 1.22
 

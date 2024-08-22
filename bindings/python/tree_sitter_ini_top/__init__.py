@@ -1,4 +1,4 @@
-"IniFileTopSolid grammar for tree-sitter"
+"IniTop grammar for tree-sitter"
 
 from ._binding import language
 
