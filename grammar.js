@@ -2,7 +2,7 @@ module.exports = grammar({
   name: "ini_top",
 
   rules: {
-    source_file: ($) => repeat($._section),
+    source_file: ($) => repeat($.section),
 
     section: ($) => seq("[", $.section_name, "]", repeat($._line)),
 
