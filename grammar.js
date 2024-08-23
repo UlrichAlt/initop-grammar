@@ -77,8 +77,7 @@ module.exports = grammar({
         optional($.address),
         ",",
         $.word,
-        ",",
-        $.format_string,
+        optional(seq(",", $.format_string)),
       ),
 
     address: ($) => choice($._quoted_address, $._unquoted_address),

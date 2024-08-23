@@ -3,7 +3,11 @@
 // Example:
 [
   {
-    "label": "Look for errors",
-    "command": "tree-sitter parse example-file.ini | grep ERROR"
+    "label": "Check example 2",
+    "command": "tree-sitter generate && tree-sitter parse example2.ini > example2.txt"
+  },
+  {
+    "label": "Generate",
+    "command": "tree-sitter generate"
   }
 ]
