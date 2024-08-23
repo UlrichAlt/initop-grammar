@@ -7,6 +7,7 @@ module.exports = grammar({
     section: ($) => seq("[", $.section_name, "]", repeat($._line)),
 
     section_name: ($) => /[A-Z\,\s_0-9]+/,
+    jump_target: ($) => /[A-Z\,\s_0-9]+/,
 
     _line: ($) =>
       choice($._bloc_line, $._jump_line, $._format_line, $.param_line),
@@ -26,7 +27,7 @@ module.exports = grammar({
         $.jump_keyword,
         ",",
         "[",
-        $.section_name,
+        $.jump_target,
         "]",
         seq(repeat($.condition_cell), /\n/),
       ),

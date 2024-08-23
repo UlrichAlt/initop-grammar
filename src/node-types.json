@@ -77,6 +77,11 @@
     "fields": {}
   },
   {
+    "type": "jump_target",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "param_line",
     "named": true,
     "fields": {},
@@ -147,6 +152,10 @@
           "named": true
         },
         {
+          "type": "jump_target",
+          "named": true
+        },
+        {
           "type": "param_line",
           "named": true
         },
@@ -160,6 +169,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "section_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "simple_condition_cell",
@@ -289,10 +303,6 @@
   },
   {
     "type": "parameter_value",
-    "named": true
-  },
-  {
-    "type": "section_name",
     "named": true
   },
   {
