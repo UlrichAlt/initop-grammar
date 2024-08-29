@@ -62,7 +62,7 @@ module.exports = grammar({
     assignment_value: ($) =>
       choice($._number, $._assignment_text, $._dollar_text),
 
-    _dollar_text: ($) => /\$.+[^\]\n]/,
+    _dollar_text: ($) => /\$[^\]\n]+/,
 
     _number: ($) => /[0-9]+/,
 
