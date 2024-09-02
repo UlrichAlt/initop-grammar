@@ -3,8 +3,8 @@
 // Example:
 [
   {
-    "label": "Check example 2",
-    "command": "tree-sitter generate && tree-sitter parse example2.ini > example2.txt"
+    "label": "Check example",
+    "command": "tree-sitter generate && tree-sitter parse example3.ini > example3.txt"
   },
   {
     "label": "Generate",
